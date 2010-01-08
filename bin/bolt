@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+# 
+#  bolt
+#  bolt
+#  
+#  Created by Ben McRedmond on 2010-01-08.
+#  Copyright 2010 Ben McRedmond. All rights reserved.
+# 
+
+begin
+  require 'bolt'  
+rescue LoadError
+  require 'rubygems'
+  require 'bolt'
+end
+
+b = Bolt::Bolt.new
+b.run
