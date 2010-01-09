@@ -13,8 +13,8 @@ Gem::Specification.new do |s|
   s.summary = %q{Bolt is a simple static website generator with support for dynamic content.}
   s.description = %q{Bolt was built to fill a gap in static website generators, making it super easy to generate a static website with dynamic content.}
   
-  s.require_paths = ["lib"]
-  s.files = FileList['lib/**/*.rb', 'bin/*', 'LICENSE']
+  s.require_paths = ['lib']
+  s.files = FileList['lib/**/*.rb', 'bin/*', 'LICENSE', 'default_files/*']
   
   s.bindir = ["bin"]
   s.executables = ["bolt"]
