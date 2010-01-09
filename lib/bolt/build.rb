@@ -11,6 +11,7 @@ require 'fileutils'
 
 require 'bolt/base'
 require 'bolt/page'
+require 'bolt/view'
 
 module Bolt
   class Build < Base
