@@ -14,25 +14,25 @@ module Bolt
   class Base
     # Takes an ostruct options object created by parsing ARGV
     def initialize(options)
-      @options = options      
-      @options.base_dir += "/"
+      $config = options      
+      $config.base_dir += "/"
       STDOUT.sync = true
     end        
     
-    # Creates a directory, prefixes @options.base_dir if required
+    # Creates a directory, prefixes $config.base_dir if required
     def create_directory(directory, options = {})
-      options[:error_if_exists] ||= true
+      options[:error_if_exists] = (options[:error_if_exists].nil?) ? true : options[:error_if_exists]
       directory = d(directory) if options[:base_dir].nil?     
       
-      if File.directory?(directory) && options[:error_if_exists]
-        raise ArgumentError, "#{directory} exists already."
+      if File.directory?(directory)
+        raise ArgumentError, "#{directory} exists already." if options[:error_if_exists]
       else
         Dir.mkdir(directory)
         puts "Created #{directory}"
       end            
     end
     
-    # Creates a file, <tt>file</tt>, with the contents of <tt>:copy_from</tt>, prefixes @options.base_dir
+    # Creates a file, <tt>file</tt>, with the contents of <tt>:copy_from</tt>, prefixes $config.base_dir
     def create_file(file, options = {})
       file = d(file)
             
@@ -48,14 +48,14 @@ module Bolt
       puts "Created #{file}"
     end
     
-    # Opens file, <tt>file</tt> with mode, <tt>mode</tt> prefixes @options.base_dir
+    # Opens file, <tt>file</tt> with mode, <tt>mode</tt> prefixes $config.base_dir
     def open_file(file, mode = "r")
       File.open(d(file), mode)
     end
     
-    # Returns <tt>file_or_directory</tt> with @options.base_dir prefixed
+    # Returns <tt>file_or_directory</tt> with $config.base_dir prefixed
     def d(file_or_directory)
-      @options.base_dir + file_or_directory
+      $config.base_dir + file_or_directory
     end
   end
 end

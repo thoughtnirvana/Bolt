@@ -19,5 +19,6 @@ Gem::Specification.new do |s|
   s.bindir = ["bin"]
   s.executables = ["bolt"]
   
-  s.add_dependency('activesupport', '>= 2.3.4')     
+  s.add_dependency('activesupport', '>= 2.3.4')
+  s.add_dependency('haml', '>= 2.2')
 end

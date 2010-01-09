@@ -12,7 +12,7 @@ require 'ostruct'
 module Bolt
   class Bolt
     def initialize
-      @options = OpenStruct.new
+      $config = OpenStruct.new
       @commands = {"create" => true,
                    "build" => true}
     end
@@ -26,57 +26,57 @@ module Bolt
     private
     # Runs a command specified on the command line
     def run_command
-      self.send(@options.command)
+      self.send($config.command)
     end
     
     # Creates a new project object and runs it resulting in creating 
     # all nessecary directories for a new bolt project
     def create
       require 'bolt/project'
-      Project.new(@options).run
+      Project.new($config).run
     end
 
     # Creates a new build object and runs it resulting in building
     # a bolt project and saving all files into the "out" directory.
     def build
       require 'bolt/build'
-      Build.new(@options).run
+      Build.new($config).run
     end
 
     # Parses command line options
     def parse_options
-      @options.resources = "resources"
-      @options.lib = "lib"
-      @options.views = "views"
-      @options.pages = "pages"
-      @options.out = "out"
-      @options.config = "config.yml"
+      $config.resources = "resources"
+      $config.lib = "lib"
+      $config.views = "views"
+      $config.pages = "pages"
+      $config.out = "out"
+      $config.config = "config.yml"
       
       opts = OptionParser.new do |opts|
         opts.banner = "Usage: bolt {create/build} [options] [file]"
 
         opts.on("-r", "--resources [resource-dir]", "Resources directory") do |opts|
-          @options.resources = opts
+          $config.resources = opts
         end
         
         opts.on("-v", "--views [views-dir]", "Views directory") do |opts|
-          @options.views = opts
+          $config.views = opts
         end
         
         opts.on("-l", "--lib [lib-dir]", "Library directory") do |opts|
-          @options.lib = opts
+          $config.lib = opts
         end
         
         opts.on("-p", "--pages [pages-dir]", "Pages directory") do |opts|
-          @options.pages = opts
+          $config.pages = opts
         end
 
         opts.on("-o", "--out [out-directory]", "Where to save HTML") do |opts|
-          @options.out = opts
+          $config.out = opts
         end
         
         opts.on("-c", "--config [config-file.yml]", "Config file") do |opts|
-          @options.config = opts
+          $config.config = opts
         end
 
         opts.on_tail("-h", "--help", "Show this help message") do
@@ -91,8 +91,8 @@ module Bolt
         puts opts.help
         exit
       else
-        @options.command = ARGV[0]
-        @options.base_dir = (ARGV.count == 2) ? ARGV[1] : "."
+        $config.command = ARGV[0]
+        $config.base_dir = (ARGV.count == 2) ? ARGV[1] : "."
       end
     end
   end

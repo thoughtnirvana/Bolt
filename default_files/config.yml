@@ -1,2 +1,4 @@
+primary_template: application.haml
+
 # Key-value paris in this file will be available as instance variables in Bolt pages and views
 # e.g. title: MyAweomseSite becomes @title => "MyAwesomeSite"

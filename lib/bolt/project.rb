@@ -13,8 +13,8 @@ module Bolt
     # Takes an ostruct options object created by parsing ARGV
     def initialize(options)
       super(options)      
-      @default_directories = [@options.pages, @options.views, @options.lib, @options.resources] 
-      @default_files = {@options.config => "default_files/config.yml"}
+      @default_directories = [$config.pages, $config.views, $config.lib, $config.resources] 
+      @default_files = {$config.config => "default_files/config.yml"}
     end
 
     # Creates all nessecary directories and files for a new Bolt Project
@@ -27,7 +27,7 @@ module Bolt
     # Creates all the default directories using either defaults 
     # specified in lib/bolt.rb or by options on the command line
     def create_directory_structure
-      create_directory(@options.base_dir, :base_dir => true) unless File.directory?(@options.base_dir)
+      create_directory($config.base_dir, :base_dir => true) unless File.directory?($config.base_dir)
       @default_directories.each {|directory| create_directory(directory)}
     end    
     
