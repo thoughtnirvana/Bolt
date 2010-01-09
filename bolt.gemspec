@@ -3,15 +3,15 @@ require 'rake'
 
 Gem::Specification.new do |s|
   s.name = %q{benofsky-bolt}
-  s.version = "0.1.2"
+  s.version = "0.1.4"
   s.date = %q{2010-01-08}
   s.authors = ["Ben McRedmond"]
   s.email = %q{ben+bolt@benmcredmond.com}
   s.homepage = %q{http://github.com/benofsky/bolt/}
   s.has_rdoc = true 
   
-  s.summary = %q{WeBolt is a simple static website generator with support for dynamic content.}
-  s.description = %q{WeBolt was built to fill a gap in static website generators, making it super easy to generate a static website with dynamic content inserted at compile time.}
+  s.summary = %q{Bolt is a simple static website generator with great support for dynamic content insertion.}
+  s.description = %q{Bolt was built to fill a gap in static website generators. Bolt makes it really really simple to generate a static website with dynamic content inserted at compile time.}
   
   s.require_paths = ['lib']
   s.files = FileList['lib/**/*.rb', 'bin/*', 'LICENSE', 'default_files/*']

@@ -24,6 +24,7 @@ end
 # Writes a file containing whatever is returned from a supplied block
 # Will create directories as required by <tt>path</tt>
 def page(path)
+  @current_page = path
   create_path(path)
   
   path = "#{$config.base_dir}#{$config.out}/#{path}.html"
