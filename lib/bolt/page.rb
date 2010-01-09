@@ -34,10 +34,12 @@ end
 private
 def create_path(path)
   path = path.split('/')
-  path = "#{$config.base_dir}#{$config.out}/#{path[0..path.length-2].join('/')}"
-  if !File.directory?(path)
-    FileUtils.mkdir_p(path)
-    puts "Created #{path}"
+  if path.count > 1
+    path = "#{$config.base_dir}#{$config.out}/#{path[0..path.length-2].join('/')}"
+    if !File.directory?(path)
+      FileUtils.mkdir_p(path)
+      puts "Created #{path}"
+    end
   end
 end
 
