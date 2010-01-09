@@ -93,6 +93,7 @@ module Bolt
       else
         $config.command = ARGV[0]
         $config.base_dir = (ARGV.count == 2) ? ARGV[1] : "."
+        $config.base_dir += '/' if $config.base_dir[-1..$config.base_dir.length] != '/'
       end
     end
   end

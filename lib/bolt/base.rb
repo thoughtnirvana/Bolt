@@ -6,6 +6,7 @@
 #  Copyright 2010 Ben McRedmond. All rights reserved.
 # 
 
+require 'fileutils'
 require 'ftools'
 
 $BOLT_BASE = File.dirname(__FILE__) + "/../../"
@@ -14,8 +15,7 @@ module Bolt
   class Base
     # Takes an ostruct options object created by parsing ARGV
     def initialize(options)
-      $config = options      
-      $config.base_dir += "/"
+      $config = options
       STDOUT.sync = true
     end        
     
@@ -30,6 +30,13 @@ module Bolt
         Dir.mkdir(directory)
         puts "Created #{directory}"
       end            
+    end
+    
+    # Forces removal of directory, <tt>directory</tt>
+    def remove_directory(directory)
+      directory = d(directory)
+      FileUtils.rm_rf(directory)
+      puts "Removed #{directory}"
     end
     
     # Creates a file, <tt>file</tt>, with the contents of <tt>:copy_from</tt>, prefixes $config.base_dir

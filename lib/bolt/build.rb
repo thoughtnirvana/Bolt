@@ -10,13 +10,14 @@ require 'yaml'
 require 'fileutils'
 
 require 'bolt/base'
-require 'bolt/helpers'
+require 'bolt/page'
 
 module Bolt
   class Build < Base
     # Performs all the nessecary steps to build a Bolt project
     def run
-      create_directory("out", :error_if_exists => false)
+      remove_directory("out")
+      create_directory("out", :error_if_exists => false)      
       copy_resources
       parse_config
       load_pages
@@ -24,26 +25,26 @@ module Bolt
     
     # Copies the contents of $config.resources to the out directory
     def copy_resources
-      FileUtils.cp_r(Dir.glob("#{$config.resources}/*"), $config.out)
-      puts "Copied #{$config.resources}/"
+      FileUtils.cp_r(Dir.glob("#{d($config.resources)}/*"), d($config.out))
+      puts "Copied #{d($config.resources)} to #{d($config.out)}"
     end
     
     # Parses $config.config and loads all contents into instance variables
     def parse_config
-      $local_config = YAML::load(open_file($config.config))
-      puts "Parsed config #{$config.config}"
+      $config_file = YAML::load(open_file(d($config.config)))
+      puts "Parsed config #{d($config.config)}"
     end  
     
     def load_pages
-      pages = Dir.glob("#{$config.pages}/*.rb")
+      pages = Dir.glob("#{d($config.pages)}/*.rb")
       pages.each do |page|
         parse_page page        
       end
     end
     
     def parse_page(page)
-      load page
-      puts "Parsed page #{page}"
+      puts "Parsing page #{page}"
+      load page      
     end
   end
 end
