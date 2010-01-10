@@ -7,7 +7,9 @@
 # 
 
 require 'fileutils'
-require 'ftools'
+
+# Deprecated library in Ruby 1.9
+require 'ftools' if RUBY_VERSION.to_f <= 1.8
 
 $BOLT_BASE = File.dirname(__FILE__) + "/../../"
 
