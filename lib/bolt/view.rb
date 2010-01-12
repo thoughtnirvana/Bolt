@@ -7,5 +7,9 @@
 # 
 
 def u(path)
-  path + ".html" 
+  path + ".html"
+end
+
+def anchor(path)
+  "#"+path
 end
