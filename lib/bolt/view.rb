@@ -9,3 +9,7 @@
 def u(path)
   path + ".html" 
 end
+
+def anchor(path)
+  "#" + path
+end
