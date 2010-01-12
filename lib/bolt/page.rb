@@ -67,7 +67,7 @@ end
 def render_haml(haml, locals = {})
   if locals != false && locals.empty?
     self.instance_variables.each do |var|
-      locals[var.to_s.split("@")[1]] = self.instance_variable_get(var)
+      locals[var.split("@")[1]] = self.instance_variable_get(var)
     end
     
     locals.merge!($config_file)
