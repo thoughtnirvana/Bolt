@@ -16,17 +16,9 @@ require 'bolt/view'
 module Bolt
   class Build < Base
     # Performs all the nessecary steps to build a Bolt project
-    def initialize()
-      if $config.out
-        puts $config.out
-      else
-        $config.out = d("out")
-      end
-    end
-    
     def run
-      remove_directory($config.out)
-      create_directory($config.out, :error_if_exists => false)      
+      remove_directory("out")
+      create_directory("out", :error_if_exists => false)      
       copy_resources
       parse_config
       load_pages
@@ -34,8 +26,8 @@ module Bolt
     
     # Copies the contents of $config.resources to the out directory
     def copy_resources
-      FileUtils.cp_r(Dir.glob("#{d($config.resources)}/*"), $config.out)
-      puts "Copied #{d($config.resources)} to #{$config.out}"
+      FileUtils.cp_r(Dir.glob("#{d($config.resources)}/*"), d($config.out))
+      puts "Copied #{d($config.resources)} to #{d($config.out)}"
     end
     
     # Parses $config.config and loads all contents into instance variables
