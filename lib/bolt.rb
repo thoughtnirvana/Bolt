@@ -40,7 +40,7 @@ module Bolt
     # a bolt project and saving all files into the "out" directory.
     def build
       require 'bolt/build'
-      Build.new($config).run
+      Build.new().run
     end
 
     # Parses command line options
@@ -48,8 +48,8 @@ module Bolt
       $config.resources = "resources"
       $config.lib = "lib"
       $config.views = "views"
-      $config.pages = "pages"
       $config.out = "out"
+      $config.pages = "pages"
       $config.config = "config.yml"
       
       opts = OptionParser.new do |opts|

@@ -27,7 +27,7 @@ def page(path)
   @current_page = path
   create_path(path)
   
-  path = "#{$config.base_dir}#{$config.out}/#{path}.html"
+  path = "#{$config.out}/#{path}.html"
   File.open(path, 'w') {|f| f.write yield}
   puts "Created #{path}"
 end
@@ -36,7 +36,7 @@ private
 def create_path(path)
   path = path.split('/')
   if path.count > 1
-    path = "#{$config.base_dir}#{$config.out}/#{path[0..path.length-2].join('/')}"
+    path = "#{$config.out}/#{path[0..path.length-2].join('/')}"
     if !File.directory?(path)
       FileUtils.mkdir_p(path)
       puts "Created #{path}"
