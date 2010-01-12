@@ -23,7 +23,7 @@ module Bolt
     # Creates a directory, prefixes $config.base_dir if required
     def create_directory(directory, options = {})
       options[:error_if_exists] = (options[:error_if_exists].nil?) ? true : options[:error_if_exists]
-      directory = d(directory) if options[:base_dir].nil?     
+      directory = directory
       
       if File.directory?(directory)
         raise ArgumentError, "#{directory} exists already." if options[:error_if_exists]
@@ -35,7 +35,7 @@ module Bolt
     
     # Forces removal of directory, <tt>directory</tt>
     def remove_directory(directory)
-      directory = d(directory)
+      directory = directory
       FileUtils.rm_rf(directory)
       puts "Removed #{directory}"
     end
