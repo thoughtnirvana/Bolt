@@ -7,16 +7,13 @@
 # 
 
 require 'fileutils'
-
 require 'ftools' if RUBY_VERSION.to_f <= 1.8
 
 $BOLT_BASE = File.dirname(__FILE__) + "/../../"
 
 module Bolt
   class Base
-    # Takes an ostruct options object created by parsing ARGV
-    def initialize(options)
-      $config = options
+    def initialize
       STDOUT.sync = true
     end        
     

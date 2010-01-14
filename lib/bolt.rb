@@ -33,7 +33,7 @@ module Bolt
     # all nessecary directories for a new bolt project
     def create
       require 'bolt/project'
-      Project.new($config).run
+      Project.new.run
     end
 
     # Creates a new build object and runs it resulting in building

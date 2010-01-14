@@ -14,16 +14,7 @@ require 'bolt/page'
 require 'bolt/view'
 
 module Bolt
-  class Build < Base
-    # Performs all the nessecary steps to build a Bolt project
-    def initialize()
-      if $config.out
-        puts $config.out
-      else
-        $config.out = d("out")
-      end
-    end
-    
+  class Build < Base    
     def run
       remove_directory($config.out)
       create_directory($config.out, :error_if_exists => false)      
