@@ -1,12 +1,2 @@
-# Bolt
 Bolt is an open source static site generator written in Ruby. Bolt was created as no current static site generators could execute code dynamically a site compile time &mdash; with Bolt at compile time you can pull in records from your database, make http requests, prompt the user for information, etc.
 
-## Getting Started
-To get started with Bolt simply install the gem as follows:
-
-        gem install benofsky-bolt
-
-This installs a command line tool 'bolt' and all the tools you need to use bolt. To create a site you use the 'create' command:
-
-        bolt create my_site
-        

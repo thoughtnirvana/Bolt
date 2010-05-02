@@ -11,8 +11,7 @@ require 'bolt/base'
 module Bolt
   class Project < Base        
     # Takes an ostruct options object created by parsing ARGV
-    def initialize(options)
-      super(options)      
+    def initialize()
       @default_directories = [$config.pages, $config.views, $config.lib, $config.resources] 
       @default_files = {$config.config => "default_files/config.yml"}
     end

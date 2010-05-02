@@ -40,7 +40,7 @@ module Bolt
     # a bolt project and saving all files into the "out" directory.
     def build
       require 'bolt/build'
-      Build.new().run
+      Build.new.run
     end
 
     # Parses command line options
