@@ -9,11 +9,11 @@
 require 'bolt/base'
 
 module Bolt
-  class Project < Base        
-    # Takes an ostruct options object created by parsing ARGV
-    def initialize()
+  class Project < Base
+    
+    def initialize
       @default_directories = [$config.pages, $config.views, $config.lib, $config.resources] 
-      @default_files = {$config.config => "default_files/config.yml"}
+      @default_files = {$config.config => "default_files/config.yml", "#{$config.views}/application.haml" => "default_files/application.haml", "#{$config.views}/home.haml" => "default_files/home.haml", "#{$config.pages}/home.rb" => "default_files/home.rb"}
     end
 
     # Creates all nessecary directories and files for a new Bolt Project
