@@ -11,7 +11,8 @@
 def render(view, options = {})
   raise ArgumentError, "Please specify a view to render" if view.empty?
   
-  options[:template] ||= $config_file['primary_template']
+  # We have to use nil? here because options[:template] can be false
+  options[:template] = $config_file['primary_template'] if options[:template].nil?
   options[:engine] ||= "haml"
 
   raise ArgumentError, ":engine cannot be view" if options[:engine] == "view"    
