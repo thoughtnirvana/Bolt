@@ -18,7 +18,12 @@ def render(view, options = {})
   require options[:engine_require] || options[:engine]
   
   @content = render_view(view_as_string(view, options[:engine]), options[:engine])
-  render_view(view_as_string(options[:template]), options[:engine]) unless options[:template].empty?
+  
+  if options[:template]
+    return render_view(view_as_string(options[:template]), options[:engine])
+  else
+    return @content
+  end
 end
 
 # Writes a file containing whatever is returned from a supplied block
