@@ -1,5 +1,10 @@
 # Bolt
-Bolt is an open source static site generator written in Ruby. Bolt was created as no current static site generators could execute code dynamically a site compile time &mdash; with Bolt at compile time you can pull in records from your database, make http requests, prompt the user for information, etc.
+Bolt is an open source static site generator written in Ruby. Bolt was created as no current static site generators could execute code dynamically at site compile time &mdash; with Bolt at compile time you can pull in records from your database, make http requests, prompt the user for information, etc.
+
+I hope this brief documentation below helps people get started, if you have any comments/questions/suggestions just send me a mail at hello@benmcredmond.com or Twitter me @benofsky. If you find a bug please open a Github ticket.
+
+Thanks,
+Ben
 
 ## Getting Started
 To get started with Bolt simply install the gem as follows:
@@ -83,7 +88,3 @@ Now we know all about the different bits in Bolt, we are ready to build a site. 
           Created out/index.html
 
 Your whole Bolt site should now be compiled into various HTML files in the out directory, you can copy this directory to a web server or just view the files in your web browser.
-
----
-
-I hope this somewhat sparse documentation helped, if you have any comments/questions/suggestions just send me a mail at hello@benmcredmond.com or Twitter me @benofsky.
