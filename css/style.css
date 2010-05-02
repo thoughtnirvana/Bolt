@@ -1,0 +1,148 @@
+html {
+	background: none;
+}
+
+body {
+	border-top: 2px solid #DF0000;	
+	background: #eee;
+	color: #333;
+	font-family: Georgia, "Times New Roman", serif;
+}
+
+h1, h2, h3, h4 {
+	margin-top: 30px;
+	margin-bottom: 5px;
+}
+
+p, pre {
+	margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 150%;    
+    color: #222;
+    font-weight: bold;
+    margin-bottom: -20px;
+}
+
+h2 {
+	color: #222;
+	font-weight: bold;
+	font-size: 110%;
+	border-bottom: 1px solid #aaa;
+}
+
+h3 {
+    font-weight: bold;
+    color: #333;
+}
+
+a.button {
+	width: 200px;
+	display: block;
+	margin: 10px auto;
+	background: none;
+	border: none;
+	font-size: 140%;
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	color: #0032d0;
+	text-decoration: none;
+}
+
+button a:hover {
+	text-decoration: underline;
+}
+
+em {
+    font-style: italic;
+}
+
+#container {
+	width: 500px;
+	margin: 0 auto;
+}
+
+.container {
+	padding: 10px;
+}
+
+.float_fix {
+	display: block;
+	width: 100%;
+	clear: both;
+}
+
+#header {
+	margin-top: 40px;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+#header .logo {
+	margin: 0 auto;
+	width: 80px;
+	display: block;
+}
+
+#header #nav {
+	display: block;
+	text-align: center;
+	width: 300px;
+	margin: 20px auto;
+}
+
+#header #nav .container {
+    margin-left: -20px;    
+}
+
+#header #nav li {
+	display: inline;
+	margin-left: 20px;
+}
+
+#header #nav li.first {
+	margin: 0;
+}
+
+#header #nav li a {
+	color: #ccc;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#header #nav li a:hover {
+	color: #555;
+}
+
+#header #nav li a.active, #header #nav li a.active:hover {
+	color: #333;
+}
+
+#body {
+	line-height: 25px;
+	font-size: 105%;
+}
+
+#body #description {
+	font-style: italic;
+}
+
+#body pre {
+	background-color: #ddd;
+	border: 1px solid #ccc;
+	padding: 10px 20px;
+	line-height: 22px;
+	overflow: auto;
+}
+
+#footer {
+	font-size: 85%;
+	font-family: Helvetica, Arial, sans-serif;
+	font-variant: small-caps;
+	font-weight: bold;
+	text-transform: lowercase;
+	line-height: 14px;
+	text-align: center;
+	margin: 100px 0;
+	color: #bababa;
+}

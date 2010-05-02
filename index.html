@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
+    <title>Bolt</title>
+    <link href='css/reset.css' rel='stylesheet' type='text/css' />
+    <link href='css/fonts.css' rel='stylesheet' type='text/css' />
+    <link href='css/style.css' rel='stylesheet' type='text/css' />
+  </head>
+  <body>
+    <div id='container'>
+      <div id='header'>
+        <img alt='bolt' class='logo' src='images/logo.png' />
+        <ul id='nav'>
+          <div class='container'>
+            <li>
+              <a class='active' href='/index.html'>Home</a>
+            </li>
+            <li>
+              <a href='/tutorial.html'>Tutorial</a>
+            </li>
+            <li>
+              <a href='http://github.com/benofsky/bolt.html'>Github</a>
+            </li>
+          </div>
+        </ul>
+      </div>
+      <div id='body'>
+        <p id='description'>Bolt is a static-site generator which facilitates code execution at site compile time, meaning you can pull records from a database, make HTTP requests or prompt the user for information or absolutely anything really</p>
+        <div id='getting-started'>
+          <h2>Getting Started</h2>
+          <p>First lets install the Bolt gem:</p>
+          <pre>$ sudo gem install bolt</pre>
+          <p>Hopefully that worked, we can now move on to creating our first site:</p>
+          <pre>$ bolt create my_first_site&#x000A;Created my_first_site/&#x000A;Created my_first_site/pages&#x000A;Created my_first_site/views&#x000A;Created my_first_site/lib&#x000A;Created my_first_site/resources&#x000A;Created my_first_site/pages/home.rb&#x000A;Created my_first_site/config.yml&#x000A;Created my_first_site/views/application.haml&#x000A;Created my_first_site/views/home.haml&#x000A;</pre>
+          <p>How exciting! Now lets build it:</p>
+          <pre>$ bolt build my_first_site&#x000A;Removed ./out&#x000A;Created ./out&#x000A;Copied ./resources to out&#x000A;Parsed config ./config.yml&#x000A;Parsing page ./pages/home.rb&#x000A;Created out/index.html&#x000A;</pre>
+          <p>Now open out/index.html in your web browser; how exciting. Seems like a lot of work for just that though, doesn't it? Well keep reading to learn about the true power of Bolt.</p>
+        </div>
+        <a class='button' href='tutorial.html#tutorial-continued'>Keep Reading</a>
+      </div>
+      <div id='footer'>
+        Copyright Ben McRedmond
+        <br />
+        Some Rights Reserved under a Creative Commons Attribution-Noncommercial-Share Alike 3.0 License
+      </div>
+    </div>
+  </body>
+</html>

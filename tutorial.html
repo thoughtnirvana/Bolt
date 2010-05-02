@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
+    <title>Bolt</title>
+    <link href='css/reset.css' rel='stylesheet' type='text/css' />
+    <link href='css/fonts.css' rel='stylesheet' type='text/css' />
+    <link href='css/style.css' rel='stylesheet' type='text/css' />
+  </head>
+  <body>
+    <div id='container'>
+      <div id='header'>
+        <img alt='bolt' class='logo' src='images/logo.png' />
+        <ul id='nav'>
+          <div class='container'>
+            <li>
+              <a href='/index.html'>Home</a>
+            </li>
+            <li>
+              <a class='active' href='/tutorial.html'>Tutorial</a>
+            </li>
+            <li>
+              <a href='http://github.com/benofsky/bolt.html'>Github</a>
+            </li>
+          </div>
+        </ul>
+      </div>
+      <div id='body'>
+        <h1>The Tutorial</h1>
+        <div id='getting-started'>
+          <h2>Getting Started</h2>
+          <p>First lets install the Bolt gem:</p>
+          <pre>$ sudo gem install bolt</pre>
+          <p>Hopefully that worked, we can now move on to creating our first site:</p>
+          <pre>$ bolt create my_first_site&#x000A;Created my_first_site/&#x000A;Created my_first_site/pages&#x000A;Created my_first_site/views&#x000A;Created my_first_site/lib&#x000A;Created my_first_site/resources&#x000A;Created my_first_site/pages/home.rb&#x000A;Created my_first_site/config.yml&#x000A;Created my_first_site/views/application.haml&#x000A;Created my_first_site/views/home.haml&#x000A;</pre>
+          <p>How exciting! Now lets build it:</p>
+          <pre>$ bolt build my_first_site&#x000A;Removed ./out&#x000A;Created ./out&#x000A;Copied ./resources to out&#x000A;Parsed config ./config.yml&#x000A;Parsing page ./pages/home.rb&#x000A;Created out/index.html&#x000A;</pre>
+          <p>Now open out/index.html in your web browser; how exciting. Seems like a lot of work for just that though, doesn't it? Well keep reading to learn about the true power of Bolt.</p>
+        </div>
+        <div id='tutorial-continued'>
+          <h2>Bolt, in depth</h2>
+          <p>Lets go back and look at those directories Bolt created for us in more depth, as they each make up an important component of Bolt. We'll start with the Pages.</p>
+          <h3>Pages</h3>
+          <p>Pages are the most important part of any Bolt site, they are the code that is used to generate the individual pages on your website. When 'bolt build' is called, Bolt searches for all .rb files in the pages directory (not in subdirectories). They work like this, this is the example page included in every new bolt site (home.rb):</p>
+          <pre>page "index" do&#x000A;  render "home"&#x000A;end&#x000A;</pre>
+          <p>Pages are dead simple, each page contains a series of "page" blocks, which define a HTML file to be created (the above creates "index.html"), the HTML file contains whatever is returned from the block. In the case above we are rendering the "home" view, which we will talk about next. Since these pages are just ruby code, they can contain anything and do anything that ruby can do. So they are fairly powerful.</p>
+          <p>
+            <em>Note: Any instance variables in your pages, will be made available as local variables in the views.</em>
+          </p>
+          <h3>Views and The Render Method</h3>
+          <p>Views define the markup used to generate your pages and are written in the HAML (see [the haml website](http://haml-lang.com/) for documentation on writing HAML.) markup language (which compiles to HTML). Every Bolt site must have a primary view, by default called "application.haml". This is definable in your config.yml file in the root directory of your Bolt site and is created by default when you run "bolt create".</p>
+          <p>The "application.haml" is the primary template for your bolt site, in this file you would put the markup that decides the overall layout of the site. Lets look at the one for this site:</p>
+          <pre>!!!&#x000A;%html{:xmlns => "http://www.w3.org/1999/xhtml", "xml:lang" => "en", :lang => "en"}&#x000A;  %head&#x000A;    %meta{'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8'}/&#x000A;    %title Bolt&#x000A;    %link{:rel => "stylesheet", :href => "css/reset.css", :type => "text/css"}&#x000A;    %link{:rel => "stylesheet", :href => "css/fonts.css", :type => "text/css"}&#x000A;    %link{:rel => "stylesheet", :href => "css/style.css", :type => "text/css"}    &#x000A;  %body&#x000A;    #container&#x000A;      #header&#x000A;        %img{:src => "images/logo.png", :alt => "bolt", :class => "logo"}        &#x000A;        %ul#nav&#x000A;          .container&#x000A;            - site_nav.each do |title, url|&#x000A;              %li&#x000A;                %a{:href => u(url), :class => is_active(url, current_page)}=title&#x000A;      #body&#x000A;        =content&#x000A;&#x000A;      #footer&#x000A;        Copyright Ben McRedmond&#x000A;        %br&#x000A;        Some Rights Reserved under a Creative Commons Attribution-Noncommercial-Share Alike 3.0 License&#x000A;&#x000A;</pre>
+          <p>When ever the "render" method is called (and :template is not specified), the view specified in the render method is parsed first, i.e. if we do something like:</p>
+          <pre>render "my_view"</pre>
+          <p>"my_view.haml" is the first thing to be compiled into HTML. This is then inserted into our application template through the "content" variable, which is then also parsed to HTML and saved to the "out" directory. This setup, means we never have to repeat ourselves; lovely. Sometimes (like on this site), we might want to render a HAML file in another HAML file, to do that is simple we just do the following within one of our views:</p>
+          <pre>=render("getting_started", :template => false)</pre>
+          <p>Note: this could also be used within a page, if you wanted to use a page without rendering it in to the application template. The :template option also allows for the possibility of having multiple application templates (i.e. replace false with the name of another template).</p>
+          <h3>Lib</h3>
+          <p>The lib directory is merely a place to put pieces of code that are shared between multiple page files, or if you want to keep your page files nice and clean. Anything put in the lib directory can simply be "required" in any page. Like follows:</p>
+          <pre>require "lib/helpers"</pre>
+          <p>It is useful to know that all methods accessible in your pages, are also accessible in your views.</p>
+          <h3>Resources</h3>
+          The resources directory is where you place all stylesheet, javascript, images, etc. which you want to be included in your final compiled site. At compile time they are copied into the "out" directory before any of the templates are parsed.
+          <h3>Config.yml</h3>
+          <p>Config.yml is the only config file required within Bolt, it is where you set the name of your default template (application.haml), anything else placed in this file is made accessible to the view as a local variable. For example the navigation for this site is defined in our config.yml file as follows:</p>
+          <pre>site_nav:        &#x000A;    Github: http://github.com/benofsky/bolt&#x000A;    Home: /index&#x000A;    Tutorial: /tutorial&#x000A;</pre>
+          <p>We are then able to loop through this in our view at compile time, through the "site_nav" local variable.</p>
+          <h2>The end</h2>
+          <p>
+            If you want a good example of a Bolt site you can download this site
+            <a href='/bolt-web.tar'>here.</a>
+          </p>
+          <p>
+            Well, that is the end of our short little tutorial. More in depth documentation is coming soon, check back soon! I hope you like Bolt, if you do feel free to help out on
+            <a href='http://github.com/benofsky/bolt'>Github</a>
+            . If you have any troubles feel free to Twitter me
+            <a href='http://twitter.com/benofsky'>@benofsky</a>
+            or email me at
+            <a href='mailto:hello@benmcredmond.com'>hello@benmcredmond.com</a>
+            .
+          </p>
+        </div>
+      </div>
+      <div id='footer'>
+        Copyright Ben McRedmond
+        <br />
+        Some Rights Reserved under a Creative Commons Attribution-Noncommercial-Share Alike 3.0 License
+      </div>
+    </div>
+  </body>
+</html>
