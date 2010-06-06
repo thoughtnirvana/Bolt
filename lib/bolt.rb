@@ -42,6 +42,11 @@ module Bolt
       require 'bolt/build'
       Build.new.run
     end
+    
+    def serve
+      require 'bolt/serve'
+      Serve.new.run
+    end
 
     # Parses command line options
     def parse_options
