@@ -57,9 +57,11 @@ module Bolt
       $config.out = "out"
       $config.pages = "pages"
       $config.config = "config.yml"
+      $config.serve_host = "127.0.0.1"
+      $config.serve_port = "2658"
       
       opts = OptionParser.new do |opts|
-        opts.banner = "Usage: bolt {create/build} [options] [file]"
+        opts.banner = "Usage: bolt {create/build/serve} [options] [file]"
 
         opts.on("-r", "--resources [resource-dir]", "Resources directory") do |opts|
           $config.resources = opts
@@ -83,6 +85,14 @@ module Bolt
         
         opts.on("-c", "--config [config-file.yml]", "Config file") do |opts|
           $config.config = opts
+        end
+        
+        opts.on("-H", "--host [host]", "Serve development server host") do |opts|
+          $config.serve_host = opts
+        end
+        
+        opts.on("-P", "--port [port]", "Serve development server port") do |opts|
+          $config.serve_port = opts
         end
 
         opts.on_tail("-h", "--help", "Show this help message") do

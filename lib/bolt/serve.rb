@@ -28,7 +28,7 @@ module Bolt
       DRb.start_service(nil, self)
       $drb_uri = DRb.uri
       
-      @server = HTTPServer.new()
+      @server = HTTPServer.new(:host => $config.serve_host, :port => $config.serve_port)
       
       trap("INT") { exit! }
     end
