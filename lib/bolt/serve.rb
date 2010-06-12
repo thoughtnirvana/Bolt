@@ -8,14 +8,36 @@
 
 require 'socket'
 require 'time'
+require 'drb/drb'
 
 require 'bolt/build'
-require 'drb/drb'
+
+class File
+  def content_type
+    mime = {'.jpeg'  => 'image/jpeg',        '.jpg'   => 'image/jpeg',
+            '.png'   => 'image/png',         '.gif'   => 'image/gif',
+            '.mp3'   => 'audio/mpeg3',       '.aif'   => 'audio/aiff',
+            '.mid'   => 'audio/midi',        '.wav'   => 'audio/wav',
+            '.m4a'   => 'audio/MP4A-LATM',   '.3gp'   => 'video/3gpp',
+            '.dv'    => 'video/DV',          '.mp4'   => 'video/H264',
+            '.pdf'   => 'application/pdf',   '.js'    => 'application/js',
+            '.json'  => 'application/json',  '.xml'   => 'text/xml',
+            '.html'  => 'text/html',         '.htm'   => 'text/htm',
+            '.css'   => 'text/css',          '.txt'   => 'text/plain'}
+    mime[File.extname(self.path)] || 'application/octet-stream'
+  end
+  
+  def to_s
+    s = ""
+    self.each {|line| s += line}
+    s
+  end
+end
 
 module Bolt
   class DRbHash < Hash
     include DRbUndumped
-  end
+  end    
   
   class Serve < Build    
     attr_accessor :pages
@@ -24,12 +46,12 @@ module Bolt
       super
       @pages = DRbHash.new
       
-
       DRb.start_service(nil, self)
       $drb_uri = DRb.uri
       
       @server = HTTPServer.new(:host => $config.serve_host, :port => $config.serve_port)
       
+      @errors_base = File.expand_path(File.dirname(File.dirname(__FILE__))) + '/bolt/serve_errors/'
       trap("INT") { exit! }
     end
   
@@ -52,13 +74,16 @@ module Bolt
         
           if(!page.nil?)
             @server.reply(page.call)
+          elsif(File.exists?(d($config.resources) + request['GET']))
+            f = File.new(d($config.resources) + request['GET'])            
+            @server.reply(f.to_s, 200, 'Content-Type' => f.content_type)
           else
-            # Check files
+            @server.reply(File.new(@errors_base + '404.html').to_s, 404)
           end
         end
       rescue Exception => e
         puts e
-        @server.reply("error", 500)
+        @server.reply(File.new(@errors_base + '500.html').to_s, 500)
         retry
       end
       
@@ -92,7 +117,7 @@ module Bolt
         end
       end
 
-      puts "Request from: #{@session.addr[2]} \n\tfor #{@request['GET']}\n\n"
+      puts "Request from: #{@session.addr[2]} \n\tfor: #{@request['GET']}\n\n"
       @request
     end
 

@@ -16,7 +16,7 @@ unless ENV['BOLT_DEV'] == "true"
     require 'bolt'
   end
 else
-  base = File.expand_path("#{File.dirname(File.dirname(__FILE__))}")
+  base = File.expand_path(File.dirname(File.dirname(__FILE__)))
   $:.push("#{base}/lib/")
   require 'bolt.rb'
   require 'rubygems'
