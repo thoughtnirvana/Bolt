@@ -3,8 +3,8 @@ require 'rake'
 
 Gem::Specification.new do |s|
   s.name = %q{benofsky-bolt}
-  s.version = "0.3.3"
-  s.date = %q{2010-05-02}
+  s.version = "0.4"
+  s.date = %q{2010-06-12}
   s.authors = ["Ben McRedmond"]
   s.email = %q{ben+bolt@benmcredmond.com}
   s.homepage = %q{http://github.com/benofsky/bolt/}
@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = %q{Bolt was built to fill a gap in static website generators. Bolt makes it really really simple to generate a static website with dynamic content inserted at compile time.}
   
   s.require_paths = ['lib']
-  s.files = FileList['lib/**/*.rb', 'bin/*', 'LICENSE', 'default_files/*']
+  s.files = FileList['lib/**/*.rb', 'lib/**/**/*.html', 'bin/*', 'LICENSE', 'default_files/*']
   
   s.bindir = ["bin"]
   s.executables = ["bolt"]
