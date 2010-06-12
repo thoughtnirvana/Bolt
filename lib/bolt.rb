@@ -14,7 +14,8 @@ module Bolt
     def initialize
       $config = OpenStruct.new
       @commands = {"create" => true,
-                   "build" => true}
+                   "build" => true,
+                   "serve" => true}
     end
     
     # Parses command line options then runs the specified command

@@ -15,7 +15,8 @@ def render(view, options = {})
   options[:template] = $config_file['primary_template'] if options[:template].nil?
   options[:engine] ||= "haml"
 
-  raise ArgumentError, ":engine cannot be view" if options[:engine] == "view"    
+  raise ArgumentError, ":engine cannot be view" if options[:engine] == "view"
+  
   require options[:engine_require] || options[:engine]
   
   @content = render_view(view_as_string(view, options[:engine]), options[:engine])

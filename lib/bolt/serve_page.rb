@@ -1,8 +1,9 @@
 require 'drb'
 
 DRb.start_service()
-serve_instance = DRbObject.new(nil, $drb_uri)
+@serve_instance = DRbObject.new(nil, $drb_uri)
 
-def page(page)
-  serve_instance.pages[page] = Proc.new(yield)
+def page(page, &block)
+  page = "" if page == "index"
+  @serve_instance.pages[page] = block
 end

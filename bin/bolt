@@ -8,11 +8,18 @@
 #  Copyright 2010 Ben McRedmond. All rights reserved.
 # 
 
-begin
-  require 'bolt'  
-rescue LoadError
+unless ENV['BOLT_DEV'] == "true"
+  begin
+    require 'bolt'  
+  rescue LoadError
+    require 'rubygems'
+    require 'bolt'
+  end
+else
+  base = File.expand_path("#{File.dirname(File.dirname(__FILE__))}")
+  $:.push("#{base}/lib/")
+  require 'bolt.rb'
   require 'rubygems'
-  require 'bolt'
 end
 
 b = Bolt::Bolt.new
