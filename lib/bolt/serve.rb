@@ -45,6 +45,8 @@ module Bolt
     end
   end
   
+  class NotFound404 < Exception; end;
+  
   class Serve < Build    
     attr_accessor :pages
   
@@ -82,7 +84,11 @@ module Bolt
           page_name = "index" if page_name == ""
           page = @pages[page_name]
           
-          if(!page.nil?)                        
+          # Handle subdirectories
+          page = @pages[page_name + "index"] if page.nil?
+          page = @pages[page_name + "/index"] if page.nil?
+          
+          if(!page.nil?)
             # A tad hacky, otherwise @current_page isn't set properly and all hell breaks loose
             body = PageBinding.new(page_name).instance_eval(&page)
             @server.reply(body)
@@ -90,10 +96,11 @@ module Bolt
             f = File.new(d($config.resources) + request['GET'])            
             @server.reply(f.to_s, 200, 'Content-Type' => f.content_type)
           else
-            # want to raise an exception here
-            @server.reply(File.new(@errors_base + '404.html').to_s, 404)
+            raise NotFound404            
           end
         end
+      rescue NotFound404        
+        @server.reply(File.new(@errors_base + '404.html').to_s, 404)
       rescue Exception => e
         puts "Error: #{e}"
         puts e.backtrace
