@@ -39,6 +39,12 @@ module Bolt
     include DRbUndumped
   end    
   
+  class PageBinding
+    def initialize(current_page)
+      @current_page = current_page
+    end
+  end
+  
   class Serve < Build    
     attr_accessor :pages
   
@@ -65,16 +71,20 @@ module Bolt
           # Basically the parent class Build loads each page in the pages directory
           # for whatever project we're in, however the bolt/serve_page require up above
           # overrides the standard page method used in these pages to instead send us 
-          # the block used to generate the page, so basically @pages is full of 
+          # the block used to generate the page (via drb), so basically @pages is full of 
           # url => block references.
           load_pages        
           parse_config
           
           page_name = request['GET'].gsub(/\.html/,'')[1..-1]
           page = @pages[page_name]
-        
+          
           if(!page.nil?)
-            @server.reply(page.call)
+            page_name = "index" if page_name == ""
+            
+            # A tad hacky, otherwise @current_page isn't set properly and all hell breaks loose
+            body = PageBinding.new(page_name).instance_eval(&page)
+            @server.reply(body)
           elsif(File.exists?(d($config.resources) + request['GET']))
             f = File.new(d($config.resources) + request['GET'])            
             @server.reply(f.to_s, 200, 'Content-Type' => f.content_type)
@@ -83,7 +93,8 @@ module Bolt
           end
         end
       rescue Exception => e
-        puts e
+        puts "Error: #{e}"
+        puts e.backtrace
         @server.reply(File.new(@errors_base + '500.html').to_s, 500)
         retry
       end
