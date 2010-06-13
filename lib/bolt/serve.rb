@@ -77,11 +77,10 @@ module Bolt
           parse_config
           
           page_name = request['GET'].gsub(/\.html/,'')[1..-1]
+          page_name = "index" if page_name == ""
           page = @pages[page_name]
           
-          if(!page.nil?)
-            page_name = "index" if page_name == ""
-            
+          if(!page.nil?)                        
             # A tad hacky, otherwise @current_page isn't set properly and all hell breaks loose
             body = PageBinding.new(page_name).instance_eval(&page)
             @server.reply(body)
