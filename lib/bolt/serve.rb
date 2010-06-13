@@ -55,10 +55,12 @@ module Bolt
       DRb.start_service(nil, self)
       $drb_uri = DRb.uri
       
+      $serve = true
+      
       @server = HTTPServer.new(:host => $config.serve_host, :port => $config.serve_port)
       
       @errors_base = File.expand_path(File.dirname(File.dirname(__FILE__))) + '/bolt/serve_errors/'
-      trap("INT") { exit! }
+      trap("INT") { exit! }            
     end
   
     def run
@@ -88,6 +90,7 @@ module Bolt
             f = File.new(d($config.resources) + request['GET'])            
             @server.reply(f.to_s, 200, 'Content-Type' => f.content_type)
           else
+            # want to raise an exception here
             @server.reply(File.new(@errors_base + '404.html').to_s, 404)
           end
         end
