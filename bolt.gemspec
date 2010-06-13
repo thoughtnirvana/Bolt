@@ -3,8 +3,8 @@ require 'rake'
 
 Gem::Specification.new do |s|
   s.name = %q{benofsky-bolt}
-  s.version = "0.4"
-  s.date = %q{2010-06-12}
+  s.version = "0.4.1"
+  s.date = %q{2010-06-13}
   s.authors = ["Ben McRedmond"]
   s.email = %q{ben+bolt@benmcredmond.com}
   s.homepage = %q{http://github.com/benofsky/bolt/}
