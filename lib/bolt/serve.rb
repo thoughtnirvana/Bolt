@@ -69,8 +69,9 @@ module Bolt
           # url => block references.
           load_pages        
           parse_config
-        
-          page = @pages[request['GET'].gsub(/\.html/,'')[1..-1]]
+          
+          page_name = request['GET'].gsub(/\.html/,'')[1..-1]
+          page = @pages[page_name]
         
           if(!page.nil?)
             @server.reply(page.call)
