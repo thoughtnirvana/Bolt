@@ -12,7 +12,7 @@ require 'ftools' if RUBY_VERSION.to_f <= 1.8
 $BOLT_BASE = File.dirname(__FILE__) + "/../../"
 
 module Bolt
-  class Base
+  class Base    
     def initialize
       STDOUT.sync = true
     end        
@@ -45,7 +45,7 @@ module Bolt
       options[:copy_from] ||= false
       
       if options[:copy_from]          
-        f = File.copy(options[:copy_from], file)
+        f = FileUtils.copy(options[:copy_from], file)
       else
         f = File.new(file, options[:mode])
       end
