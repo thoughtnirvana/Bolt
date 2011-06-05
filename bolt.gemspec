@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "bin/bolt",
+    "bolt.gemspec",
     "default_files/application.haml",
     "default_files/config.yml",
     "default_files/home.haml",
