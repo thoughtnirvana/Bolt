@@ -9,6 +9,8 @@
 require 'fileutils'
 require 'ftools' if RUBY_VERSION.to_f <= 1.8
 
+require 'bundler/setup'
+
 $BOLT_BASE = File.dirname(__FILE__) + "/../../"
 
 module Bolt
