@@ -14,7 +14,7 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "bolt"
+  gem.name = "benofsky-bolt"
   gem.homepage = "http://github.com/benofsky/bolt"
   gem.license = "MIT"
   gem.has_rdoc = true
